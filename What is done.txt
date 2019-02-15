@@ -1,0 +1,6 @@
+meta_host runs and calls class_setup.py
+
+example python.csv file made.
+
+class_setup.py creates output python.json file
+
