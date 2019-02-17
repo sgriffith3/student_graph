@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>{{Title}}</title>
+</head>
+<body>
+
+<div class="jumbotron jumbotron-fluid">
+<div class="container">
+<h1 class="display-1" style="text-align: center">{{Title}}</h1>
+<div class="container" style="text-align: center">
+<div id="student_update">
+	<form class="form-inline" action="/{{Title}}/update" method="POST" enctype="application/x-www-form-urlencoded">
+        Lab Number: <input type="text" name="lab_id">
+    Update Status: <select name="action">
+    <option value="start">Start</option>
+    <option value="end">End</option>
+</select><br>
+    <button value="submit">Submit</button>
+        <br>
+</form>
+</div>
+</div>
+</div>
+</div>
+<div class="table-responsive table-bordered table-hover" id='here_table' style="text-align: left"></div>
+
+</body>
+<script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+<script>
+function getData(){
+  $.get( "/json/{{Title}}", createTable);
+  setTimeout(getData, 30000);
+}
+
+function createTable(json_info){
+  console.log(json_info);
+let content = "<table style='width:50%'>";
+// content += "<tr><td>student_id</td><td>lab 1</td></tr>"
+// json_info.num_labs
+let highestLab = 0;
+for (const key of Object.keys(json_info)) {
+  for (const labNum of Object.keys(json_info[key]['labs'])){
+    let numericLabNum = parseInt(labNum);
+      if (highestLab < numericLabNum) {
+        highestLab = numericLabNum
+      };
+  };
+};
+
+content += "<tr><th>Student Name</th>"
+for (i=0; i<highestLab+1; i++){
+  content += `<th>Lab ${i}</th>`
+}
+content += "</tr>"
+
+for (const key of Object.keys(json_info)) {
+    content += `<tr><td>${json_info[key].student_name}</td>`
+
+    for (i=0; i<highestLab+1; i++){
+      let labStarted = false
+      let labComplete = false
+
+      if (`${i}` in json_info[key]["labs"]){
+        if ("end_time" in json_info[key]["labs"][`${i}`]){
+          labComplete = true
+        }
+        if ("start_time" in json_info[key]["labs"][`${i}`]){
+          labStarted = true
+        }
+
+      }
+      if (labComplete){
+         content += `<td bgcolor="#11aa11"></td>`
+         }
+
+      else if(labStarted){
+              content += `<td bgcolor = #00ff00></td>`
+            }
+      else {content += `<td bgcolor="#ffffff"></td>`}
+    }
+content += "</tr>"
+
+}
+// for (i=0; i<3; i++){
+//     content += '<tr><td>' + 'result</td><td> ' +  i + '</td></tr>';
+// }
+content += "</table>"
+$('#here_table').html(content);
+}
+
+getData();
+</script>
+</html>

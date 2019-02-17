@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Python Rocks My Socks</title>
+</head>
+<body>
+<form action="/{{.Title}}/setup" method="POST">
+    <input type="submit" value="Start Class!">
+</form>
+<form action="/{{.Title}}/update" method="POST" enctype="application/x-www-form-urlencoded">
+Student ID: <input type="text" name="student_id"><br>
+Lab Number: <input type="text" name="lab_id"><br>
+    Update Status: <select name="action">
+    <option value="start">Start</option>
+    <option value="end">End</option>
+
+</select>
+    <button value="submit"></button>
+</form>
+<script></script>
+</body>
+</html>

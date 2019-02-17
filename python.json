@@ -1,6 +1,41 @@
-{"student_names": "sam", "null": [" 1"]}
-{"student_names": "stu", "null": [" 2"]}
-{"student_names": "sean", "null": [" 3"]}
-{"student_names": "hilary", "null": [" 4"]}
-{"student_names": "zach", "null": [" 5"]}
-{"student_names": "don", "null": [" 6"]}
+{
+  "2": {
+    "labs": {
+      "34": {
+        "start_time": "2019-02-17T14:45:31.380387"
+      },
+      "3": {
+        "start_time": "2019-02-17T14:45:20.336244"
+      }
+    },
+    "student_name": "stu"
+  },
+  "21": {
+    "labs": {
+      "12": {
+        "start_time": "2019-02-17T14:46:22.969781"
+      }
+    },
+    "student_name": "Chris"
+  },
+  "5": {
+    "labs": {},
+    "student_name": "zach"
+  },
+  "4": {
+    "labs": {},
+    "student_name": "hilary"
+  },
+  "1": {
+    "labs": {},
+    "student_name": "sam"
+  },
+  "6": {
+    "labs": {},
+    "student_name": "don"
+  },
+  "3": {
+    "labs": {},
+    "student_name": "sean"
+  }
+}
