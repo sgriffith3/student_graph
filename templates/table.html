@@ -10,12 +10,23 @@
 </head>
 <body>
 
+        <div class="navbar-header" style="background-color: black">
+            <a class="navbar-brand" href="https://www.alta3.com" title="Alta3 Research">
+                <img class="img-responsive" alt="alta3 logo" src="/static/Alta3-logo_large.png" style="width:40%">
+            </a>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/table/{{Title}}">Course Progress</a>
+            <li><a href="/json/{{Title}}">JSON info</a></li>
+            <li><a href="/register/{{Title}}">Register</a></li></ul>
+        </div>
+    <br>
 <div class="jumbotron jumbotron-fluid">
 <div class="container">
+
 <h1 class="display-1" style="text-align: center">{{Title}}</h1>
 <div class="container" style="text-align: center">
 <div id="student_update">
-	<form class="form-inline" action="/{{Title}}/update" method="POST" enctype="application/x-www-form-urlencoded">
+	<form class="form-inline" action="/update/{{Title}}" method="POST" enctype="application/x-www-form-urlencoded">
         Lab Number: <input type="text" name="lab_id">
     Update Status: <select name="action">
     <option value="start">Start</option>
@@ -43,7 +54,7 @@ function getData(){
 
 function createTable(json_info){
   console.log(json_info);
-let content = "<table style='width:50%'>";
+let content = "<table style='width:100%'>";
 // content += "<tr><td>student_id</td><td>lab 1</td></tr>"
 // json_info.num_labs
 let highestLab = 0;
@@ -68,24 +79,32 @@ for (const key of Object.keys(json_info)) {
     for (i=0; i<highestLab+1; i++){
       let labStarted = false
       let labComplete = false
-
+      let endTime = ""
+      let startTime = ""
+      let now = new Date()
+      let oneHour = 60*1000 /* make this 60*60*1000 for one hour */
+      let color = "#ffffff"
       if (`${i}` in json_info[key]["labs"]){
         if ("end_time" in json_info[key]["labs"][`${i}`]){
           labComplete = true
+          endTime = new Date(json_info[key]["labs"][`${i}`]['end_time'])
         }
         if ("start_time" in json_info[key]["labs"][`${i}`]){
           labStarted = true
+          startTime = new Date(json_info[key]["labs"][`${i}`]['start_time'])
         }
 
       }
-      if (labComplete){
-         content += `<td bgcolor="#11aa11"></td>`
+      if (labComplete && (now - endTime) < oneHour)  {
+         color = "#0000ff"
          }
-
+      else if (labComplete){
+          color = "#11aa11"
+          }
       else if(labStarted){
-              content += `<td bgcolor = #00ff00></td>`
-            }
-      else {content += `<td bgcolor="#ffffff"></td>`}
+              color ="#ffff00"
+         }
+      content += `<td bgcolor="${color}"></td>`
     }
 content += "</tr>"
 

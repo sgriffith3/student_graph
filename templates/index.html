@@ -2,22 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Python Rocks My Socks</title>
+    <title>Alta3 Instructor Home Page</title>
 </head>
 <body>
-<form action="/{{.Title}}/setup" method="POST">
-    <input type="submit" value="Start Class!">
+<img src="https://raw.githubusercontent.com/alta3/alta3.com/master/images/logos/a3.png?token=AtVB7WfCIJXE6_lMQQ5LE1eWwLAspT4-ks5ccwK2wA%3D%3D" style="width:3%">
+<h1>Alta3 Instructor Home Page</h1>
+<h3>Create A New Class!</h3>
+<h5>or see the progress of an existing one</h5>
+Enter something in the box: <BR>
+<form action="/instructor" method="post">
+<INPUT TYPE="text" NAME="new_course"  VALUE=""><P>
+<INPUT TYPE="submit" NAME="button1" Value="Create Class!">
+</FORM>
+<form>
+{% for i in course_list %}
+    <ul><a href="table/{{i}}">{{i}}</a>
+        <button value="Delete">Delete!!!</button></ul>
+    {% endfor %}
 </form>
-<form action="/{{.Title}}/update" method="POST" enctype="application/x-www-form-urlencoded">
-Student ID: <input type="text" name="student_id"><br>
-Lab Number: <input type="text" name="lab_id"><br>
-    Update Status: <select name="action">
-    <option value="start">Start</option>
-    <option value="end">End</option>
-
-</select>
-    <button value="submit"></button>
-</form>
-<script></script>
-</body>
-</html>
+</BODY>
+</HTML>
